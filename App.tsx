@@ -6,13 +6,7 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  Text,
-  View,
-  useColorScheme,
-} from 'react-native';
+import {View, useColorScheme} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import InputField from './src/shared/components/form/input/InputField';
@@ -53,8 +47,8 @@ function App(): React.JSX.Element {
         />
 
         <InputField
-          name="name"
-          type="email"
+          name="password"
+          type="password"
           placeholder="Enter Password"
           rule={{required: true}}
           control={control}
