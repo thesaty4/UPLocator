@@ -9,19 +9,36 @@ export function getStyles(
   extraStyle?: StyleProp<ViewStyle>,
 ): Record<'style', StyleProp<ViewStyle>> {
   const style = styleMap[commonStyle ?? 'default'];
+  const extra = extraStyle
+    ? [extraStyle, commonStyle == 'field' && {fontSize: 12}]
+    : [];
   return {
-    style: [
-      ...style.map(s => tw[s]),
-      styles.map(style => tw[style]),
-      extraStyle,
-    ],
+    style: [...style.map(s => tw[s]), styles.map(style => tw[style]), ...extra],
   };
 }
 
 const styleMap = {
-  field: ['border', 'borderGray300', 'rounded'],
+  field: [
+    'textWhite',
+    'mX5',
+    'mY2',
+    'pX3',
+    'pY2',
+    'rounded',
+    'shadow',
+    'shadowOutline',
+  ],
   errorInput: ['border', 'borderRed500', 'rounded'],
   label: ['textLg', 'fontBold', 'textBlack'],
+  header: [
+    'textCenter',
+    'wFull',
+    'fontBold',
+    'text3xl',
+    'mY5',
+    'textWhite',
+    'opacity50',
+  ],
   default: [],
 } satisfies Record<string, tStyleProps[]>;
 
