@@ -22,6 +22,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {appColors} from './src/constants/app.color';
 import Header from './src/shared/view/header/Header';
 import Button from './src/shared/components/form/button/Button';
+import {Icons} from './src/assets/icons/all-icons';
 
 function App(): React.JSX.Element {
   const {
@@ -41,7 +42,7 @@ function App(): React.JSX.Element {
       colors={[appColors.primary, appColors.secondary]}
       {...getStyles(['flex1', 'alignCenter', 'justifyCenter'])}>
       <View>
-        <Header heading="Sign In" />
+        <Header heading=" Sign In" />
         <InputField
           name="name"
           type="email"
@@ -60,7 +61,7 @@ function App(): React.JSX.Element {
           errors={errors}
         />
 
-        <Button label="Sign In" onPress={() => {}} />
+        <Button label="Sign In" icon={Icons.next} onPress={() => {}} />
       </View>
     </LinearGradient>
   );
