@@ -4,7 +4,7 @@ import axios, {AxiosResponse} from 'axios';
 // import {logout} from '../../redux/slices/authSlice';
 import {AuthKeys} from '../../constants/storage-keys.enum';
 export default class RequestService {
-  private baseURL = 'http://uplapp.in/api/';
+  private baseURL = 'https://uplapp.in/api/';
   //   private dispatch!: typeof store.dispatch;
 
   constructor() {
