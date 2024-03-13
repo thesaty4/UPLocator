@@ -3,9 +3,9 @@ import {LoginResponse} from '../types/auth.types';
 export class UserDetails {
   user: User;
   token: string;
-  constructor(user: LoginResponse, token: string) {
+  constructor(user: LoginResponse) {
     this.user = new User(user);
-    this.token = token;
+    this.token = user.token;
   }
 }
 

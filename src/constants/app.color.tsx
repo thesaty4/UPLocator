@@ -5,4 +5,6 @@ export const appColors = {
   background: '#FFFFFF',
   text: '#000000',
   white: '#FFFFFF',
+  green: 'green',
+  red: 'red',
 };

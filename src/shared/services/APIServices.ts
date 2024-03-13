@@ -4,7 +4,7 @@ import axios, {AxiosResponse} from 'axios';
 // import {logout} from '../../redux/slices/authSlice';
 import {AuthKeys} from '../../constants/storage-keys.enum';
 export default class RequestService {
-  private baseURL = 'https://uplapp.in/api/';
+  private baseURL = 'https://uplapp.in/api';
   //   private dispatch!: typeof store.dispatch;
 
   constructor() {
@@ -66,7 +66,7 @@ export default class RequestService {
 
   protected async get<T>(
     endpoint: string,
-    header?: Record<string, string>,
+    // header?: Record<string, string>,
   ): Promise<APIResponse<T>> {
     return this.makeRequest('get', endpoint);
   }
@@ -119,3 +119,5 @@ export interface APIResponse<T> {
   message: string[];
   data: T;
 }
+
+export const apiService = new RequestService();

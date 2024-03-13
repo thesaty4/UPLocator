@@ -18,7 +18,7 @@ export const authSlice = createSlice({
   name: ReduxKeys.auth,
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<UserDetails>) => {
+    signIn: (state, action: PayloadAction<UserDetails>) => {
       state.isAuthenticated = true;
       state.authData = {
         user: action.payload.user,
@@ -28,7 +28,7 @@ export const authSlice = createSlice({
       // Store user information and token in local storage under a single key
       AsyncStorage.setItem(AuthKeys.authData, JSON.stringify(state.authData));
     },
-    logout: state => {
+    signOut: state => {
       state.isAuthenticated = false;
       state.authData = undefined;
 
@@ -38,8 +38,9 @@ export const authSlice = createSlice({
   },
 });
 
-export const {login, logout} = authSlice.actions;
+export const {signIn, signOut} = authSlice.actions;
 
-export const selectAuth = (state: {auth: AuthState}) => state.auth;
+export const selectAuth = (state: {[ReduxKeys.auth]: AuthState}) =>
+  state[ReduxKeys.auth];
 
 export default authSlice.reducer;

@@ -3,5 +3,7 @@ export enum AuthKeys {
 }
 
 export enum ReduxKeys {
-  auth = 'auth'
+  auth = 'auth',
+  loader = 'loader',
+  notification = 'notification',
 }

@@ -1,5 +1,6 @@
 // notificationSlice.ts
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {ReduxKeys} from '../../constants/storage-keys.enum';
 
 interface NotificationState {
   message: string | null;
@@ -12,7 +13,7 @@ const initialState: NotificationState = {
 };
 
 export const notificationSlice = createSlice({
-  name: 'notification',
+  name: ReduxKeys.notification,
   initialState,
   reducers: {
     showNotification: (
@@ -31,7 +32,8 @@ export const notificationSlice = createSlice({
 
 export const {showNotification, hideNotification} = notificationSlice.actions;
 
-export const selectNotification = (state: {notification: NotificationState}) =>
-  state.notification;
+export const selectNotification = (state: {
+  [ReduxKeys.notification]: NotificationState;
+}) => state[ReduxKeys.notification];
 
 export default notificationSlice.reducer;
