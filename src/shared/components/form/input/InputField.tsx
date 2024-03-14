@@ -88,8 +88,7 @@ const InputField = <CType extends FieldValues>({
             marginLeft: 20,
             marginBottom: 10,
           }}>
-          {errors[name]?.type == 'required' && errorTypes['required']}
-          {errors[name]?.type == 'pattern' && errorTypes['pattern']}
+          {errors[name]?.message?.toString()}
         </Text>
       )}
     </View>
@@ -97,8 +96,3 @@ const InputField = <CType extends FieldValues>({
 };
 
 export default InputField;
-
-const errorTypes = {
-  required: 'This field is required *',
-  pattern: 'Invalid Pattern *',
-};

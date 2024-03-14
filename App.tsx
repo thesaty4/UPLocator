@@ -4,7 +4,6 @@ import {StatusBar} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {router} from './src/shared/routes/router';
-import SignIn from './src/pages/signin/SignIn';
 import AuthRedirect from './src/shared/routes/AuthRedirect';
 import Home from './src/pages/home/Home';
 
@@ -21,14 +20,8 @@ function App(): React.JSX.Element {
           component={AuthRedirect}
         />
         <Stack.Screen
-          name={router.signIn.route}
-          options={{headerShown: false}}
-          component={SignIn}
-        />
-
-        <Stack.Screen
           name={router.home.route}
-          options={{headerShown: true}}
+          options={{headerShown: false}}
           component={Home}
         />
       </Stack.Navigator>

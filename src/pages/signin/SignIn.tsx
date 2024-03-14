@@ -22,7 +22,6 @@ export type SignInProps = {
 
 const SignIn = () => {
   const dispatch = useDispatch();
-
   const {
     control,
     handleSubmit,
@@ -55,7 +54,16 @@ const SignIn = () => {
           name="email"
           type="email"
           placeholder="Enter Email"
-          rule={{required: true}}
+          rule={{
+            required: {
+              value: true,
+              message: 'Email is required',
+            },
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: 'Invalid email address',
+            },
+          }}
           control={control}
           errors={errors}
         />
@@ -64,7 +72,12 @@ const SignIn = () => {
           name="password"
           type="password"
           placeholder="Enter Password"
-          rule={{required: true}}
+          rule={{
+            required: {
+              value: true,
+              message: 'Password is required',
+            },
+          }}
           control={control}
           errors={errors}
         />
