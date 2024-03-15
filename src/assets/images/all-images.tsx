@@ -1,7 +1,7 @@
 export const images = {
   background: require('./background.png'),
   light: require('./light.png'),
-  logo: require('./logo.png'),
+  logo: require('./upl-logo.png'),
   userImg: require('./user-image.jpg'),
   scanner: require('./scanner.png'),
   scannerColor: require('./scanner-colorfull.png'),

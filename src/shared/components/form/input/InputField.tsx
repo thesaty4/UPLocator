@@ -6,6 +6,7 @@ import {
   KeyboardTypeOptions,
   TouchableOpacity,
   Image,
+  StyleSheet,
 } from 'react-native';
 import {
   Controller,
@@ -14,7 +15,7 @@ import {
   FieldErrors,
   Path,
 } from 'react-hook-form';
-import {getStyles} from '../../../utils/modifiers';
+import {getStyles, tStyleProps} from '../../../utils/modifiers';
 import {appColors} from '../../../../constants/app.color';
 import {Icons} from '../../../../assets/icons/all-icons';
 
@@ -26,6 +27,9 @@ type InputFieldProps<CType extends FieldValues> = {
   keyboardType?: KeyboardTypeOptions;
   errors: FieldErrors<CType>;
   placeholder?: string;
+  styleClass?: tStyleProps[];
+  searchable?: boolean;
+  onSearch?: (data: string) => void;
 };
 
 const InputField = <CType extends FieldValues>({
@@ -36,6 +40,9 @@ const InputField = <CType extends FieldValues>({
   errors,
   keyboardType = 'default',
   placeholder = 'Enter',
+  styleClass,
+  searchable = false,
+  onSearch,
 }: InputFieldProps<CType>) => {
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
 
@@ -46,11 +53,16 @@ const InputField = <CType extends FieldValues>({
         render={({field: {onChange, onBlur, value}}) => (
           <>
             <TextInput
-              {...getStyles([errors && 'borderRed500'], 'field', {
-                backgroundColor: appColors.primary,
-                opacity: 0.7,
-                elevation: 1,
-              })}
+              {...getStyles(
+                [errors && 'borderRed500', ...(styleClass ?? [])],
+                'field',
+                {
+                  backgroundColor: appColors.primary,
+                  opacity: 0.7,
+                  elevation: 1,
+                  ...(searchable && {paddingVertical: 5}),
+                },
+              )}
               secureTextEntry={type === 'password' ? !isPasswordVisible : false}
               onBlur={onBlur}
               onChangeText={onChange}
@@ -59,18 +71,24 @@ const InputField = <CType extends FieldValues>({
               placeholderTextColor={appColors.white}
               keyboardType={keyboardType}
             />
+            {searchable && (
+              <TouchableOpacity
+                style={[styles.iconButton, {top: 20, right: 30}]}
+                onPress={() =>
+                  onSearch &&
+                  control._formValues[name]?.length &&
+                  onSearch(control._formValues[name])
+                }>
+                <Image style={styles.icon} source={Icons.search} />
+              </TouchableOpacity>
+            )}
             {type == 'password' && (
               <TouchableOpacity
-                style={{position: 'absolute', right: 40, top: 23}}
+                style={styles.iconButton}
                 onPress={() => setPasswordVisibility(!isPasswordVisible)}>
                 <Image
                   source={isPasswordVisible ? Icons.eye : Icons.hideEye}
-                  style={{
-                    width: 15,
-                    height: 15,
-                    tintColor: appColors.white,
-                    opacity: 0.7,
-                  }}
+                  style={styles.icon}
                 />
               </TouchableOpacity>
             )}
@@ -81,18 +99,30 @@ const InputField = <CType extends FieldValues>({
         {...control}
       />
       {errors.hasOwnProperty(name) && (
-        <Text
-          style={{
-            color: 'yellow',
-            fontSize: 10,
-            marginLeft: 20,
-            marginBottom: 10,
-          }}>
-          {errors[name]?.message?.toString()}
-        </Text>
+        <Text style={styles.error}>{errors[name]?.message?.toString()}</Text>
       )}
     </View>
   );
 };
 
 export default InputField;
+
+const styles = StyleSheet.create({
+  iconButton: {
+    position: 'absolute',
+    right: 40,
+    top: 23,
+  },
+  icon: {
+    width: 15,
+    height: 15,
+    tintColor: appColors.white,
+    opacity: 0.7,
+  },
+  error: {
+    color: 'yellow',
+    fontSize: 10,
+    marginLeft: 20,
+    marginBottom: 10,
+  },
+});

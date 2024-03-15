@@ -1,7 +1,7 @@
 import {StyleProp, ViewStyle} from 'react-native';
 import {TailwindStyles, tw} from 'react-native-tailwindcss';
 
-type tStyleProps = keyof TailwindStyles;
+export type tStyleProps = keyof TailwindStyles;
 
 export function getStyles(
   styles: tStyleProps[],
