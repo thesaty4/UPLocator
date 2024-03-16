@@ -15,6 +15,7 @@ type ButtonProps = {
   icon?: ImageURISource;
   textStyle?: StyleProp<TextStyle>;
   onPress: () => void;
+  buttonType?: 'primary' | 'secondary' | 'transparent';
 } & React.ComponentProps<typeof TouchableOpacity>;
 
 const Button: React.FC<ButtonProps> = ({
@@ -22,12 +23,18 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   textStyle,
   onPress,
+  buttonType = 'transparent',
   ...restProps
 }) => {
   return (
     <TouchableOpacity
       {...getStyles(['pY3'], 'field', {
-        backgroundColor: appColors.white,
+        backgroundColor:
+          buttonType == 'primary'
+            ? appColors.primary
+            : buttonType == 'secondary'
+            ? appColors.secondary
+            : appColors.white,
         opacity: 0.7,
         elevation: 1,
         ...(typeof restProps?.style === 'object' ? restProps.style : {}),
@@ -45,7 +52,20 @@ const Button: React.FC<ButtonProps> = ({
           ],
           'default',
         )}>
-        <Text style={textStyle}>{label}</Text>
+        <Text
+          style={[
+            textStyle,
+            {
+              color:
+                buttonType == 'primary'
+                  ? appColors.white
+                  : buttonType == 'secondary'
+                  ? appColors.white
+                  : appColors.white,
+            },
+          ]}>
+          {label}
+        </Text>
         {icon && <Image source={icon} style={{height: 15, width: 15}} />}
       </Text>
     </TouchableOpacity>

@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React from 'react';
 import {View, Text, Image, ImageURISource} from 'react-native';
 import {getStyles} from '../../utils/modifiers';
 import LinearGradient from 'react-native-linear-gradient';
@@ -14,16 +14,16 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({
   heading = 'Heading',
-  icon = Icons.train2,
+  icon,
   isGradient = false,
 }) => {
   return (
     <View>
       {!isGradient ? (
-        <>
+        <View>
           {icon && <Image source={icon} />}
           <Text {...getStyles([], 'header')}>{heading}</Text>
-        </>
+        </View>
       ) : (
         <LinearGradient
           colors={[appColors.primary, appColors.secondary]}
@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({
             {gap: 5, backgroundColor: appColors.secondary},
           )}>
           <Image
-            source={icon}
+            source={icon ?? Icons.train2}
             style={{
               width: 25,
               height: 25,
