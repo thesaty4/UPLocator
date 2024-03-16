@@ -12,10 +12,10 @@ import {
 import Button from '../../shared/components/form/button/Button';
 import {appColors} from '../../constants/app.color';
 import {getStyles} from '../../shared/utils/modifiers';
-// import {commonStyles} from '../../constants/commonStyles';
+import {PAGES} from '../../types/pages.type';
 
-export interface NavbarItems<idType extends string = string> {
-  id?: idType;
+export interface NavbarItems<idType extends PAGES = PAGES> {
+  id: idType;
   icon?: ImageSourcePropType;
   label?: string;
   buttonLabel?: string;

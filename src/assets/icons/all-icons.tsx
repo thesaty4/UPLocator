@@ -53,4 +53,7 @@ export const Icons = {
   trainFront: require('./train-front.png'),
   pole: require('./pole.png'),
   train2: require('./underground.png'),
+  route: require('./route.png'),
+  map: require('./g-map.png'),
+  mapColored: require('./map-color.png'),
 } satisfies Record<string, ImageURISource>;

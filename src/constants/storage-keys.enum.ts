@@ -6,4 +6,5 @@ export enum ReduxKeys {
   auth = 'auth',
   loader = 'loader',
   notification = 'notification',
+  activePage = 'activePage'
 }

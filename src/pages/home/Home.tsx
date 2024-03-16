@@ -1,172 +1,46 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import Button from '../../shared/components/form/button/Button';
-import {appColors} from '../../constants/app.color';
-import useAuth from '../../shared/hooks/auth.hook';
+import {View} from 'react-native';
 import BottomNavbar, {
   NavbarItems,
 } from '../../components/BottomNavbar/BottomNavbar';
 import {Icons} from '../../assets/icons/all-icons';
 import {getStyles} from '../../shared/utils/modifiers';
 import Navbar from '../../components/Navbar/Navbar';
-import {images} from '../../assets/images/all-images';
-import ListView, {ListViewItem} from '../../components/ListView/ListView';
+import {PAGES} from '../../types/pages.type';
+import {usePageHelper} from '../../shared/hooks/pageHelper.hook';
+import Layout from '../layout/Layout';
 
 const Home = () => {
-  const {logOut} = useAuth();
+  const {setPage} = usePageHelper();
 
-  const handleLogout = () => {
-    logOut();
+  const handlePage = (item: NavbarItems<PAGES>) => {
+    setPage(item.id);
   };
+
   return (
     <View {...getStyles(['flex1', 'z100'])}>
       <Navbar />
-
-      <ListView label="Zonal List" items={homeList} onPressAction={() => {}} />
-
-      <BottomNavbar items={items} />
+      <Layout />
+      <BottomNavbar items={items} onClick={handlePage} />
     </View>
   );
 };
 
 export default Home;
 
-const homeList: ListViewItem[] = [
+export const items: NavbarItems<PAGES>[] = [
   {
-    label: 'Capture Pole',
-    substr: 'Capture Pole',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-  {
-    label: 'Pole List',
-    substr: 'Pole List',
-  },
-];
-
-export const items: NavbarItems<string>[] = [
-  {
-    id: 'Home',
+    id: PAGES.Home,
     label: 'Home',
     icon: Icons.home,
   },
   {
-    id: 'Capture Pole',
+    id: PAGES.CapturePole,
     label: 'Capture Pole',
     icon: Icons.camera,
   },
   {
-    id: 'PoleList',
+    id: PAGES.PoleList,
     label: 'Pole List',
     icon: Icons.menuList,
   },

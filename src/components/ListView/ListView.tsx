@@ -22,16 +22,24 @@ type ListViewAction = {
 export interface ListViewItem {
   label: string;
   substr: string;
-  icon?: ImageURISource;
-  actions?: ListViewAction[];
 }
 interface ListViewProps {
   label?: string;
+  icons?: {
+    label?: ImageURISource;
+    pre?: ImageURISource;
+    actions?: ListViewAction[];
+  };
   items: ListViewItem[];
   onPressAction: () => void;
 }
 
-const ListView: React.FC<ListViewProps> = ({label, items, onPressAction}) => {
+const ListView: React.FC<ListViewProps> = ({
+  icons,
+  label,
+  items,
+  onPressAction,
+}) => {
   const renderItem = ({item}: {item: ListViewItem}) => (
     <TouchableOpacity onPress={onPressAction} {...getStyles(['mX5'])}>
       <View
@@ -42,7 +50,7 @@ const ListView: React.FC<ListViewProps> = ({label, items, onPressAction}) => {
         <View {...getStyles(['justifyCenter'])}>
           <Image
             style={listStyles.actionIcon}
-            source={item?.icon ?? Icons.pole}
+            source={icons?.pre ?? Icons.pole}
           />
         </View>
         <View {...getStyles(['flex1'])}>
@@ -59,7 +67,7 @@ const ListView: React.FC<ListViewProps> = ({label, items, onPressAction}) => {
           </Text>
         </View>
         <View {...getStyles(['flexRow'])}>
-          {(item?.actions ?? defaultActions)?.map((action, index) => (
+          {(icons?.actions ?? defaultActions)?.map((action, index) => (
             <TouchableOpacity
               {...getStyles(['justifyCenter'])}
               key={index}
@@ -83,7 +91,7 @@ const ListView: React.FC<ListViewProps> = ({label, items, onPressAction}) => {
             {gap: 5, backgroundColor: appColors.secondary},
           )}>
           <Image
-            source={Icons.train2}
+            source={icons?.label ?? Icons.train2}
             style={{
               width: 25,
               height: 25,
