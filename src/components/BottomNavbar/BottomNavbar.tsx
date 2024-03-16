@@ -7,6 +7,7 @@ import {
   Image,
   StyleProp,
   ViewStyle,
+  Text,
 } from 'react-native';
 import Button from '../../shared/components/form/button/Button';
 import {appColors} from '../../constants/app.color';
@@ -16,6 +17,7 @@ import {getStyles} from '../../shared/utils/modifiers';
 export interface NavbarItems<idType extends string = string> {
   id?: idType;
   icon?: ImageSourcePropType;
+  label?: string;
   buttonLabel?: string;
   redirectTo?: never;
 }
@@ -50,47 +52,35 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
         return (
           <TouchableOpacity
             id={(item?.id || index)?.toString()}
-            // style={[
-            //   bottomNavbarStyles.button,
-            //   bottomNavbarStyles.actionWrapper,
-            //   item?.buttonLabel
-            //     ? {
-            //         width: 'auto',
-            //         height: 'auto',
-            //         padding: 0,
-            //         gap: 0,
-            //         borderRadius: 0,
-            //       }
-            //     : {},
-            // ]}
             onPress={() => {
               handleClick(item, index);
               item?.redirectTo && navigator.navigate(item.redirectTo);
             }}>
             {!item?.buttonLabel && item?.icon && (
-              <Image
-                source={item.icon}
-                style={[
-                  bottomNavbarStyles.icon,
-                  active === index && {
-                    tintColor: appColors.primary,
-                  },
-                ]}
-              />
+              <View {...getStyles(['itemsCenter'])}>
+                <Image
+                  source={item.icon}
+                  style={[
+                    bottomNavbarStyles.icon,
+                    {
+                      tintColor: active === index ? appColors.primary : 'gray',
+                    },
+                  ]}
+                />
+                <Text
+                  style={{
+                    color: active === index ? appColors.primary : 'gray',
+                    fontSize: 10,
+                    fontWeight: active === index ? '800' : '500',
+                  }}>
+                  {item?.label}
+                </Text>
+              </View>
             )}
 
             {item?.buttonLabel && (
               <Button
                 label={item.buttonLabel}
-                // title={item.buttonLabel}
-                // outline={active == index}
-                // buttonStyle={{
-                //   marginVertical: 0,
-                //   width: 100,
-                //   height: 30,
-                //   paddingVertical: 0,
-                // }}
-                // textStyle={{fontSize: 12}}
                 onPress={() => handleClick(item, index)}
               />
             )}

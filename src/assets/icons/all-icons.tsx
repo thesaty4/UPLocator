@@ -47,4 +47,10 @@ export const Icons = {
   forward: require('./forward.png'),
   plus: require('./plus.png'),
   emptyView: require('./empty-view.png'),
+  logout: require('./logout.png'),
+  menuList: require('./list.png'),
+  train: require('./train.png'),
+  trainFront: require('./train-front.png'),
+  pole: require('./pole.png'),
+  train2: require('./underground.png'),
 } satisfies Record<string, ImageURISource>;

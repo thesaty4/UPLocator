@@ -9,6 +9,8 @@ import BottomNavbar, {
 import {Icons} from '../../assets/icons/all-icons';
 import {getStyles} from '../../shared/utils/modifiers';
 import Navbar from '../../components/Navbar/Navbar';
+import {images} from '../../assets/images/all-images';
+import ListView, {ListViewItem} from '../../components/ListView/ListView';
 
 const Home = () => {
   const {logOut} = useAuth();
@@ -19,12 +21,8 @@ const Home = () => {
   return (
     <View {...getStyles(['flex1', 'z100'])}>
       <Navbar />
-      <Text>Welcome to Home</Text>
-      <Button
-        label="Logout"
-        onPress={handleLogout}
-        style={{backgroundColor: appColors.primary}}
-      />
+
+      <ListView label="Zonal List" items={homeList} onPressAction={() => {}} />
 
       <BottomNavbar items={items} />
     </View>
@@ -33,17 +31,143 @@ const Home = () => {
 
 export default Home;
 
-export const items: NavbarItems<string>[] = [
+const homeList: ListViewItem[] = [
   {
-    id: 'ForgotPassword',
-    icon: Icons.login2,
+    label: 'Capture Pole',
+    substr: 'Capture Pole',
   },
   {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+  {
+    label: 'Pole List',
+    substr: 'Pole List',
+  },
+];
+
+export const items: NavbarItems<string>[] = [
+  {
     id: 'Home',
+    label: 'Home',
     icon: Icons.home,
   },
   {
-    id: 'Profile',
-    icon: Icons.maleUser,
+    id: 'Capture Pole',
+    label: 'Capture Pole',
+    icon: Icons.camera,
+  },
+  {
+    id: 'PoleList',
+    label: 'Pole List',
+    icon: Icons.menuList,
   },
 ];

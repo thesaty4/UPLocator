@@ -1,13 +1,13 @@
-import {StyleProp, ViewStyle} from 'react-native';
+import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 import {TailwindStyles, tw} from 'react-native-tailwindcss';
 
 export type tStyleProps = keyof TailwindStyles;
 
-export function getStyles(
+export const getStyles = <eStyleType extends ViewStyle | TextStyle>(
   styles: tStyleProps[],
   commonStyle?: StyleType,
-  extraStyle?: StyleProp<ViewStyle>,
-): Record<'style', StyleProp<ViewStyle>> {
+  extraStyle?: StyleProp<eStyleType>,
+): Record<'style', StyleProp<ViewStyle>> => {
   const style = styleMap[commonStyle ?? 'default'];
   const extra = extraStyle
     ? [extraStyle, commonStyle == 'field' && {fontSize: 12}]
@@ -15,7 +15,7 @@ export function getStyles(
   return {
     style: [...style.map(s => tw[s]), styles.map(style => tw[style]), ...extra],
   };
-}
+};
 
 const styleMap = {
   field: [

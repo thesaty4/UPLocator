@@ -1,13 +1,14 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {images} from '../../assets/images/all-images';
-import {toTitleCase} from '../../shared/utils/formator';
+import {Alert, Image, StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {selectAuth} from '../../redux/slices/authSlice';
 import {appColors} from '../../constants/app.color';
 import InputField from '../../shared/components/form/input/InputField';
 import {useForm} from 'react-hook-form';
 import {getStyles} from '../../shared/utils/modifiers';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Icons} from '../../assets/icons/all-icons';
+import useAuth from '../../shared/hooks/auth.hook';
 
 function Navbar() {
   const {authData} = useSelector(selectAuth);
@@ -16,18 +17,31 @@ function Navbar() {
     control,
     formState: {errors},
   } = useForm<{search: string}>();
+  const {logOut} = useAuth();
+
+  const handleLogout = () => {
+    Alert.alert('Logout', 'Are you sure you want to logout?', [
+      {
+        text: 'Cancel',
+      },
+      {
+        text: 'Ok',
+        onPress: logOut,
+      },
+    ]);
+  };
 
   return (
     <>
       {true && (
         <View style={usersStyles.navbar}>
-          <View style={{flexDirection: 'row', gap: 5}}>
+          <View {...getStyles(['flexRow'])}>
             <Image
-              source={images.logo}
+              source={Icons.trainFront}
               style={[
                 usersStyles.logo,
-                {width: 50, top: 2},
                 usersStyles.navbarIcons,
+                {width: 30, top: 2},
               ]}
             />
           </View>
@@ -45,17 +59,12 @@ function Navbar() {
             />
           </View>
 
-          <View style={[usersStyles.navbarActions, {gap: 5}]}>
-            <View style={styles.textInfo}>
-              <Text style={styles.name}>
-                {user?.name?.length && user?.name?.length > 5
-                  ? toTitleCase(user?.name ?? '')
-                      .substring(0, 5)
-                      .concat('...')
-                  : toTitleCase(user?.name ?? '')}
-              </Text>
-            </View>
-          </View>
+          <TouchableOpacity onPress={handleLogout}>
+            <Image
+              source={Icons.logout}
+              style={{tintColor: 'white', height: 30, width: 30}}
+            />
+          </TouchableOpacity>
         </View>
       )}
     </>
@@ -63,35 +72,6 @@ function Navbar() {
 }
 
 export default Navbar;
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 30,
-    height: 30,
-    borderRadius: 50,
-  },
-  textInfo: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-  },
-  role: {
-    fontSize: 12,
-    color: 'white',
-    letterSpacing: 1,
-    alignSelf: 'center',
-    fontWeight: 'bold',
-  },
-  name: {
-    fontSize: 12,
-    fontWeight: '900',
-    color: appColors.white,
-    letterSpacing: 1,
-    alignSelf: 'center',
-    width: '100%',
-    textAlign: 'center',
-  },
-});
 
 export const usersStyles = StyleSheet.create({
   mainWrapper: {},
@@ -104,25 +84,9 @@ export const usersStyles = StyleSheet.create({
     backgroundColor: appColors.primary,
   },
   logo: {
-    height: 20,
+    height: 35,
   },
   navbarIcons: {
     tintColor: 'white',
-  },
-  navbarActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 20,
-  },
-  logoutWrapper: {
-    marginHorizontal: 20,
-  },
-  logout: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  content: {
-    padding: 20,
-    gap: 30,
   },
 });
