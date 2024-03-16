@@ -12,7 +12,7 @@ import {getStyles} from '../../shared/utils/modifiers';
 import {appColors} from '../../constants/app.color';
 import {commonStyles} from '../../constants/styles.const';
 import {Icons} from '../../assets/icons/all-icons';
-import LinearGradient from 'react-native-linear-gradient';
+import Header from '../../shared/view/header/Header';
 
 type ListViewAction = {
   label?: string;
@@ -83,32 +83,11 @@ const ListView: React.FC<ListViewProps> = ({
   return (
     <View>
       {label && (
-        <LinearGradient
-          colors={[appColors.primary, appColors.secondary]}
-          {...getStyles(
-            ['flexRow', 'justifyCenter', 'alignCenter', 'pB3'],
-            'default',
-            {gap: 5, backgroundColor: appColors.secondary},
-          )}>
-          <Image
-            source={icons?.label ?? Icons.train2}
-            style={{
-              width: 25,
-              height: 25,
-              tintColor: appColors.white,
-              alignItems: 'center',
-              //   backgroundColor: appColors.green,
-            }}
-          />
-          <Text
-            {...getStyles(['m1', 'fontBold'], 'default', {
-              fontSize: 16,
-              color: appColors.white,
-              ...commonStyles.textShadowN,
-            })}>
-            {label}
-          </Text>
-        </LinearGradient>
+        <Header
+          heading={label}
+          icon={icons?.label ?? Icons.train2}
+          isGradient
+        />
       )}
       <FlatList
         data={items}

@@ -1,17 +1,57 @@
 import React, {ReactNode} from 'react';
 import {View, Text, Image, ImageURISource} from 'react-native';
 import {getStyles} from '../../utils/modifiers';
+import LinearGradient from 'react-native-linear-gradient';
+import {appColors} from '../../../constants/app.color';
+import {Icons} from '../../../assets/icons/all-icons';
+import {commonStyles} from '../../../constants/styles.const';
 
 interface HeaderProps {
   heading?: string;
-  image?: ImageURISource;
+  icon?: ImageURISource;
+  isGradient?: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({heading = 'Heading', image}) => {
+const Header: React.FC<HeaderProps> = ({
+  heading = 'Heading',
+  icon = Icons.train2,
+  isGradient = false,
+}) => {
   return (
     <View>
-      {image && <Image source={image} />}
-      <Text {...getStyles([], 'header')}>{heading}</Text>
+      {!isGradient ? (
+        <>
+          {icon && <Image source={icon} />}
+          <Text {...getStyles([], 'header')}>{heading}</Text>
+        </>
+      ) : (
+        <LinearGradient
+          colors={[appColors.primary, appColors.secondary]}
+          {...getStyles(
+            ['flexRow', 'justifyCenter', 'alignCenter', 'pB3'],
+            'default',
+            {gap: 5, backgroundColor: appColors.secondary},
+          )}>
+          <Image
+            source={icon}
+            style={{
+              width: 25,
+              height: 25,
+              tintColor: appColors.white,
+              alignItems: 'center',
+              //   backgroundColor: appColors.green,
+            }}
+          />
+          <Text
+            {...getStyles(['m1', 'fontBold'], 'default', {
+              fontSize: 16,
+              color: appColors.white,
+              ...commonStyles.textShadowN,
+            })}>
+            {heading}
+          </Text>
+        </LinearGradient>
+      )}
     </View>
   );
 };
