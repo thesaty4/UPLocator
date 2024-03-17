@@ -33,6 +33,7 @@ interface ListViewProps extends Partial<FlatList> {
     actions?: ListViewAction[];
   };
   items: ListViewItem[];
+  isBack?: boolean;
   onPressItem?: (item: ListViewItem) => void;
   onPressAction?: (item: ListViewAction) => void;
   onEndReached?: () => void;
@@ -42,6 +43,7 @@ const ListView: React.FC<ListViewProps> = ({
   icons,
   label,
   items,
+  isBack = false,
   onPressItem,
   onPressAction,
   onEndReached,
@@ -106,6 +108,7 @@ const ListView: React.FC<ListViewProps> = ({
           heading={label}
           icon={icons?.label ?? Icons.train2}
           isGradient
+          isBack={isBack}
         />
       )}
       <FlatList
