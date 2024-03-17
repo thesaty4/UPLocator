@@ -1,8 +1,31 @@
 import React from 'react';
-import ListView, {ListViewItem} from '../../../components/ListView/ListView';
+import ListView, {
+  ListViewAction,
+  ListViewItem,
+} from '../../../components/ListView/ListView';
 import {Icons} from '../../../assets/icons/all-icons';
+import {usePageHelper} from '../../../shared/hooks/pageHelper.hook';
+import {PAGES} from '../../../types/pages.type';
 
-const PoleList = () => {
+export type PoleListProps = {
+  onPress?: (item: ListViewItem) => void;
+};
+
+const PoleList = ({onPress}: PoleListProps) => {
+  const {getActivePage, setPage} = usePageHelper();
+
+  const handlePaginate = () => {
+    console.log('paginate pole list ....');
+  };
+
+  const handlePress = (item: ListViewItem) => {
+    onPress && onPress(item);
+  };
+
+  const handleAction = (item: ListViewAction) => {
+    setPage(PAGES.EditPole);
+  };
+
   return (
     <ListView
       label="Pole List"
@@ -12,7 +35,9 @@ const PoleList = () => {
         pre: Icons.route,
         actions: [{icon: Icons.mapColored}],
       }}
-      onPressAction={() => {}}
+      onEndReached={handlePaginate}
+      onPressItem={handlePress}
+      onPressAction={handleAction}
     />
   );
 };

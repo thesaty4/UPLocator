@@ -14,16 +14,18 @@ import {commonStyles} from '../../constants/styles.const';
 import {Icons} from '../../assets/icons/all-icons';
 import Header from '../../shared/view/header/Header';
 
-type ListViewAction = {
+export type ListViewAction = {
   label?: string;
   icon: ImageURISource;
+  item?: ListViewItem;
 };
 
 export interface ListViewItem {
+  id?: string;
   label: string;
   substr: string;
 }
-interface ListViewProps {
+interface ListViewProps extends Partial<FlatList> {
   label?: string;
   icons?: {
     label?: ImageURISource;
@@ -31,17 +33,32 @@ interface ListViewProps {
     actions?: ListViewAction[];
   };
   items: ListViewItem[];
-  onPressAction: () => void;
+  onPressItem?: (item: ListViewItem) => void;
+  onPressAction?: (item: ListViewAction) => void;
+  onEndReached?: () => void;
 }
 
 const ListView: React.FC<ListViewProps> = ({
   icons,
   label,
   items,
+  onPressItem,
   onPressAction,
+  onEndReached,
+  ...restProps
 }) => {
+  const handlePress = (prop: {
+    item?: ListViewItem;
+    actionItem?: ListViewAction;
+  }) => {
+    prop?.item && onPressItem && onPressItem(prop.item);
+    prop?.actionItem && onPressAction && onPressAction(prop.actionItem);
+  };
+
   const renderItem = ({item}: {item: ListViewItem}) => (
-    <TouchableOpacity onPress={onPressAction} {...getStyles(['mX5'])}>
+    <TouchableOpacity
+      onPress={() => handlePress({item})}
+      {...getStyles(['mX5'])}>
       <View
         {...getStyles(['flexCol', 'mY2', 'pY2', 'pX3', 'flexRow'], 'default', {
           ...commonStyles.bShadowXSM,
@@ -67,12 +84,14 @@ const ListView: React.FC<ListViewProps> = ({
           </Text>
         </View>
         <View {...getStyles(['flexRow'])}>
-          {(icons?.actions ?? defaultActions)?.map((action, index) => (
+          {(icons?.actions ?? defaultActions)?.map((actionItem, index) => (
             <TouchableOpacity
               {...getStyles(['justifyCenter'])}
               key={index}
-              onPress={onPressAction}>
-              <Image style={listStyles.actionIcon} source={action.icon} />
+              onPress={() =>
+                handlePress({actionItem: {...actionItem, ...item}})
+              }>
+              <Image style={listStyles.actionIcon} source={actionItem.icon} />
             </TouchableOpacity>
           ))}
         </View>
@@ -93,6 +112,8 @@ const ListView: React.FC<ListViewProps> = ({
         data={items}
         renderItem={renderItem}
         keyExtractor={item => item.label}
+        onEndReached={onEndReached}
+        {...restProps}
       />
     </View>
   );

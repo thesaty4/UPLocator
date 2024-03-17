@@ -11,7 +11,7 @@ import {usePageHelper} from '../../shared/hooks/pageHelper.hook';
 import Layout from '../layout/Layout';
 
 const Home = () => {
-  const {setPage} = usePageHelper();
+  const {getActivePage, setPage} = usePageHelper();
 
   const handlePage = (item: NavbarItems<PAGES>) => {
     setPage(item.id);

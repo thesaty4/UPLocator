@@ -4,11 +4,13 @@ import {PAGES} from '../../types/pages.type';
 import Zonal from '../features/Zonal/Zonal';
 import PoleList from '../features/PoleList/PoleList';
 import CapturePole from '../features/CapturePole/CapturePole';
+import EditPole from '../features/EditPole/EditPole';
 
 const features: Partial<Record<PAGES, React.JSX.Element>> = {
   [PAGES.Home]: <Zonal />,
   [PAGES.CapturePole]: <CapturePole />,
   [PAGES.PoleList]: <PoleList />,
+  [PAGES.EditPole]: <EditPole />,
 };
 
 const getFeature = (activePage: PAGES): ReactElement => {
