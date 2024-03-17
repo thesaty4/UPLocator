@@ -21,7 +21,7 @@ import {Icons} from '../../../../assets/icons/all-icons';
 
 type InputFieldProps<CType extends FieldValues> = {
   name: Path<CType>;
-  type: string;
+  type: 'text' | 'number' | 'date' | 'password' | 'email';
   rule: any;
   control: Control<CType, any>;
   keyboardType?: KeyboardTypeOptions;
@@ -29,6 +29,7 @@ type InputFieldProps<CType extends FieldValues> = {
   placeholder?: string;
   styleClass?: tStyleProps[];
   searchable?: boolean;
+  variant?: 'primary' | 'secondary' | 'normal';
   onSearch?: (data: string) => void;
 };
 
@@ -42,6 +43,7 @@ const InputField = <CType extends FieldValues>({
   placeholder = 'Enter',
   styleClass,
   searchable = false,
+  variant = 'primary',
   onSearch,
 }: InputFieldProps<CType>) => {
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
@@ -57,10 +59,20 @@ const InputField = <CType extends FieldValues>({
                 [errors && 'borderRed500', ...(styleClass ?? [])],
                 'field',
                 {
-                  backgroundColor: appColors.primary,
+                  backgroundColor:
+                    variant == 'primary'
+                      ? appColors.primary
+                      : variant == 'secondary'
+                      ? appColors.secondary
+                      : appColors.white,
                   opacity: 0.7,
                   elevation: 1,
                   ...(searchable && {paddingVertical: 5}),
+                  ...(variant == 'normal' && {
+                    color: appColors.black,
+                    borderWidth: 0.6,
+                    borderColor: appColors.primary,
+                  }),
                 },
               )}
               secureTextEntry={type === 'password' ? !isPasswordVisible : false}
@@ -68,7 +80,9 @@ const InputField = <CType extends FieldValues>({
               onChangeText={onChange}
               value={value}
               placeholder={placeholder}
-              placeholderTextColor={appColors.white}
+              placeholderTextColor={
+                variant == 'normal' ? appColors.black : appColors.white
+              }
               keyboardType={keyboardType}
             />
             {searchable && (
@@ -99,7 +113,13 @@ const InputField = <CType extends FieldValues>({
         {...control}
       />
       {errors.hasOwnProperty(name) && (
-        <Text style={styles.error}>{errors[name]?.message?.toString()}</Text>
+        <Text
+          style={[
+            styles.error,
+            variant == 'normal' && {color: appColors.primary},
+          ]}>
+          {errors[name]?.message?.toString()}
+        </Text>
       )}
     </View>
   );
