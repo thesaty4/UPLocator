@@ -3,8 +3,8 @@ import RouteLines from '../RouteLines/RouteLines';
 import ZonalList from './ZonalList';
 import {createStackNavigator} from '@react-navigation/stack';
 import {router} from '../../../shared/routes/router';
-import PoleList from '../PoleList/PoleList';
 import EditPole from '../EditPole/EditPole';
+import Poles from '../Poles/Poles';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +27,7 @@ const Zonal = () => {
       <Stack.Screen
         name={router.poleList.route}
         options={{headerShown: false, animationEnabled: false}}
-        component={PoleList}
+        component={Poles}
       />
       <Stack.Screen
         name={router.editPole.route}

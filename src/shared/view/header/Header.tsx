@@ -36,7 +36,11 @@ const Header: React.FC<HeaderProps> = ({
   const Back = ({onPress}: {onPress: () => void}) =>
     isBack ? (
       <View>
-        <TouchableOpacity onPress={onPress} {...getStyles(['pX5', 'pT2'])}>
+        <TouchableOpacity
+          onPress={onPress}
+          {...getStyles(['pX5'], 'default', {
+            paddingTop: 6,
+          })}>
           <Image
             source={Icons.backArrow}
             style={{
@@ -77,12 +81,14 @@ const Header: React.FC<HeaderProps> = ({
                 height: 25,
                 tintColor: appColors.white,
                 alignItems: 'center',
+                marginTop: 2,
                 //   backgroundColor: appColors.green,
               }}
             />
             <Text
-              {...getStyles(['m1', 'fontBold'], 'default', {
+              {...getStyles(['m0', 'fontBold'], 'default', {
                 fontSize: 16,
+                marginTop: 3,
                 color: appColors.white,
                 ...commonStyles.textShadowN,
               })}>

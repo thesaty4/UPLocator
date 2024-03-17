@@ -11,7 +11,7 @@ const Poles = ({navigation}: PoleListProps) => {
     // onPress && onPress(item);
   };
 
-  return <PoleList isBack />;
+  return <PoleList navigation={navigation} isBack />;
 };
 
 export default Poles;
