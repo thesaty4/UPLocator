@@ -102,7 +102,10 @@ const ListView: React.FC<ListViewProps> = ({
   );
 
   return (
-    <View>
+    <View
+      {...getStyles(['mB30'], 'default', {
+        marginBottom: 45,
+      })}>
       {label && (
         <Header
           heading={label}

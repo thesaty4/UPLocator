@@ -57,4 +57,8 @@ export const Icons = {
   map: require('./g-map.png'),
   mapColored: require('./map-color.png'),
   myLocation: require('./my-location.png'),
+  flashOn: require('./flash-on.png'),
+  flashOff: require('./flash-off.png'),
+  rotateCamera: require('./rotate-camera.png'),
+  expand: require('./expand.png'),
 } satisfies Record<string, ImageURISource>;

@@ -1,5 +1,13 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {View, Image, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  Modal,
+} from 'react-native';
 import {RNCamera, TakePictureResponse} from 'react-native-camera';
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import {getStyles} from '../../shared/utils/modifiers';
@@ -18,6 +26,11 @@ const cameraConfig = {
 
 const CameraView: React.FC<CameraViewProps> = ({onCapture}) => {
   const [camera, setPermission] = useState(cameraConfig);
+  const [flash, setFlash] = useState(false);
+  const [isBackCam, setBackCam] = useState(true);
+  const [isFullView, setFullView] = useState(false);
+
+  const {width, height} = Dimensions.get('window'); // Get screen dimensions
 
   const cameraRef = useRef<RNCamera>(null);
 
@@ -54,22 +67,55 @@ const CameraView: React.FC<CameraViewProps> = ({onCapture}) => {
         <View {...getStyles(['alignCenter', 'itemsCenter'], 'default', {})}>
           <RNCamera
             ref={cameraRef}
-            {...getStyles(['mB6'], 'default', cameraViewStyle.cameraWrapper)}
-            type={RNCamera.Constants.Type.back}
-            flashMode={RNCamera.Constants.FlashMode.auto}
+            {...getStyles([], 'default', {
+              marginTop: isFullView ? 0 : 10,
+              width: isFullView ? width : width - 10,
+              height: isFullView ? height : height - 220,
+            })}
+            type={isBackCam ? 'back' : 'front'}
+            flashMode={flash ? 'on' : 'off'}
             captureAudio={false}>
             <View {...getStyles(['flex1', 'wFull'], 'default')}>
               <View
-                {...getStyles(
-                  ['absolute', 'bottom0', 'wFull', 'itemsCenter'],
-                  'default',
-                  {
-                    bottom: -50,
-                  },
-                )}>
+                {...getStyles([
+                  'm2',
+                  'p2',
+                  'flex',
+                  'flexRow',
+                  'justifyBetween',
+                ])}>
+                <View {...getStyles(['flex', 'flexRow'], 'default', {gap: 20})}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setFlash(prev => !prev);
+                    }}>
+                    <Image
+                      source={flash ? Icons.flashOn : Icons.flashOff}
+                      tintColor={appColors.primary}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setBackCam(prev => !prev);
+                    }}>
+                    <Image
+                      source={Icons.rotateCamera}
+                      tintColor={appColors.primary}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    setFullView(prev => !prev);
+                  }}>
+                  <Image source={Icons.expand} tintColor={appColors.primary} />
+                </TouchableOpacity>
+              </View>
+              <View
+                {...getStyles(['absolute', 'bottom0', 'wFull', 'itemsCenter'])}>
                 <TouchableOpacity
                   {...getStyles(
-                    ['h20', 'w20', 'itemsCenter', 'justifyCenter'],
+                    ['h20', 'w20', 'itemsCenter', 'justifyCenter', 'mB10'],
                     'default',
                     {
                       borderRadius: 50,
@@ -87,7 +133,7 @@ const CameraView: React.FC<CameraViewProps> = ({onCapture}) => {
           </RNCamera>
         </View>
       );
-    }, [cameraRef]);
+    }, [cameraRef, width, height]);
 
   const EmptyView = () =>
     useMemo(() => {
@@ -100,6 +146,8 @@ const CameraView: React.FC<CameraViewProps> = ({onCapture}) => {
               ...cameraViewStyle.cameraWrapper,
               marginTop: 10,
               marginBottom: 0,
+              width: width - 20,
+              height: height - 220,
             },
           )}>
           <Text {...getStyles(['textWhite', 'mB5', 'fontBold'])}>
@@ -115,11 +163,21 @@ const CameraView: React.FC<CameraViewProps> = ({onCapture}) => {
           />
         </View>
       );
-    }, []);
+    }, [width, height]);
 
   return (
     <View {...getStyles(['itemsCenter'])}>
-      {camera.visible && camera.hasPermission ? <Camera /> : <EmptyView />}
+      {camera.visible && camera.hasPermission ? (
+        isFullView ? (
+          <Modal>
+            <Camera />
+          </Modal>
+        ) : (
+          <Camera />
+        )
+      ) : (
+        <EmptyView />
+      )}
     </View>
   );
 };
@@ -128,8 +186,6 @@ export default CameraView;
 
 const cameraViewStyle = StyleSheet.create({
   cameraWrapper: {
-    height: 390,
-    width: 390,
     marginTop: 100,
     marginBottom: 80,
   },
