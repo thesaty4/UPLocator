@@ -3,6 +3,8 @@ import {signOut} from '../../redux/slices/authSlice';
 import {startLoading, stopLoading} from '../../redux/slices/loaderSlice';
 import {authService} from '../../services/auth.service';
 import {showNotification} from '../../redux/slices/notificationSlice';
+import {setActivePage} from '../../redux/slices/pageSlice';
+import {PAGES} from '../../types/pages.type';
 
 const useAuth = (): {
   logOut: () => void;
@@ -16,6 +18,7 @@ const useAuth = (): {
       .logout()
       .then(res => {
         dispatch(signOut());
+        dispatch(setActivePage(PAGES.Home));
       })
       .catch(err => {
         dispatch(

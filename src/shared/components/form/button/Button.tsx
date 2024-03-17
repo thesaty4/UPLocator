@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   Text,
   TouchableOpacity,
@@ -26,6 +26,15 @@ const Button: React.FC<ButtonProps> = ({
   buttonType = 'transparent',
   ...restProps
 }) => {
+  const buttonTextColor = useMemo(
+    () =>
+      buttonType == 'primary'
+        ? appColors.white
+        : buttonType == 'secondary'
+        ? appColors.white
+        : appColors.black,
+    [buttonType, appColors],
+  );
   return (
     <TouchableOpacity
       {...getStyles(['pY3'], 'field', {
@@ -56,17 +65,17 @@ const Button: React.FC<ButtonProps> = ({
           style={[
             textStyle,
             {
-              color:
-                buttonType == 'primary'
-                  ? appColors.white
-                  : buttonType == 'secondary'
-                  ? appColors.white
-                  : appColors.white,
+              color: buttonTextColor,
             },
           ]}>
           {label}
         </Text>
-        {icon && <Image source={icon} style={{height: 15, width: 15}} />}
+        {icon && (
+          <Image
+            source={icon}
+            style={{height: 15, width: 15, tintColor: buttonTextColor}}
+          />
+        )}
       </Text>
     </TouchableOpacity>
   );
