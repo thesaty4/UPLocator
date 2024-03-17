@@ -1,14 +1,21 @@
 import React from 'react';
 import RouteLines from '../RouteLines/RouteLines';
 import ZonalList from './ZonalList';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  StackNavigationProp,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import {router} from '../../../shared/routes/router';
 import EditPole from '../EditPole/EditPole';
 import Poles from '../Poles/Poles';
 
 const Stack = createStackNavigator();
 
-const ZonalMain = () => {
+type ZonalMainProps = {
+  navigation: StackNavigationProp<any>; // Adjust the type as per your navigation stack
+};
+
+const ZonalMain = ({navigation}: ZonalMainProps) => {
   return (
     <Stack.Navigator initialRouteName={router.zonalList.route}>
       <Stack.Screen
