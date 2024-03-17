@@ -13,7 +13,6 @@ const Home = () => {
 export default Home;
 
 const tabViewInfo: TabViewProps<Routes> = {
-  hideTab: true,
   initialRouteName: router['home'],
   tabElements: [
     {

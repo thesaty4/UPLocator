@@ -1,20 +1,17 @@
 import React from 'react';
 import PoleList, {PoleListProps} from '../PoleList/PoleList';
-import {
-  ListViewAction,
-  ListViewItem,
-} from '../../../components/ListView/ListView';
+import {ListViewItem} from '../../../components/ListView/ListView';
 
-const Poles = ({onPress}: PoleListProps) => {
+const Poles = ({navigation}: PoleListProps) => {
   const handlePaginate = () => {
     console.log('paginate me....');
   };
 
   const handlePress = (item: ListViewItem) => {
-    onPress && onPress(item);
+    // onPress && onPress(item);
   };
 
-  return <PoleList />;
+  return <PoleList isBack />;
 };
 
 export default Poles;

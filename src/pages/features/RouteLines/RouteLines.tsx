@@ -1,23 +1,23 @@
 import React from 'react';
-import {Text} from 'react-native';
 import ListView, {
   ListViewAction,
   ListViewItem,
 } from '../../../components/ListView/ListView';
 import {Icons} from '../../../assets/icons/all-icons';
+import {NavigationProp} from '@react-navigation/native';
+import {RouteType, router} from '../../../shared/routes/router';
 
 type RouteLineProps = {
-  id?: string;
-  onPress?: (item: ListViewItem) => void;
+  navigation?: NavigationProp<RouteType>;
 };
 
-const RouteLines = ({id, onPress}: RouteLineProps) => {
+const RouteLines = ({navigation}: RouteLineProps) => {
   const handlePaginate = () => {
     console.log('paginate me....');
   };
 
   const handlePress = (item: ListViewItem) => {
-    onPress && onPress(item);
+    navigation && navigation?.navigate(router.poleList.route as any);
   };
 
   return (
@@ -34,6 +34,7 @@ const RouteLines = ({id, onPress}: RouteLineProps) => {
         item?.item && handlePress(item.item)
       }
       onEndReached={handlePaginate}
+      isBack
     />
   );
 };

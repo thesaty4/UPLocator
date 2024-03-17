@@ -3,18 +3,20 @@ import ListView, {
   ListViewAction,
   ListViewItem,
 } from '../../../components/ListView/ListView';
+import {NavigationProp} from '@react-navigation/native';
+import {RouteType, router} from '../../../shared/routes/router';
 
 type ZonalListProps = {
-  onPress?: (item: ListViewItem) => void;
+  navigation?: NavigationProp<RouteType>;
 };
 
-const ZonalList = ({onPress}: ZonalListProps) => {
+const ZonalList = ({navigation}: ZonalListProps) => {
   const handlePaginate = () => {
     console.log('paginate me....');
   };
 
   const handlePress = (item: ListViewItem) => {
-    onPress && onPress(item);
+    navigation && navigation?.navigate(router.routeLines.route as any);
   };
 
   return (

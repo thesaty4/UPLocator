@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Text} from 'react-native';
 
 const EditPole = () => {
   return <Text>EditPole</Text>;
 };
 
-export default EditPole;
+export default memo(EditPole);

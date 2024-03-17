@@ -1,55 +1,41 @@
-import React, {useMemo, useState} from 'react';
-import {PAGES} from '../../../types/pages.type';
+import React from 'react';
 import RouteLines from '../RouteLines/RouteLines';
-import Poles from '../Poles/Poles';
-import EditPole from '../EditPole/EditPole';
 import ZonalList from './ZonalList';
-import {ListViewItem} from '../../../components/ListView/ListView';
+import {createStackNavigator} from '@react-navigation/stack';
+import {router} from '../../../shared/routes/router';
+import PoleList from '../PoleList/PoleList';
+import EditPole from '../EditPole/EditPole';
 
-export type ZonalPages =
-  | PAGES.ZonalList
-  | PAGES.RouteLines
-  | PAGES.Poles
-  | PAGES.EditPole;
-
-export type ListPressProps = {
-  item: ListViewItem;
-  nextState: ZonalPages;
-};
+const Stack = createStackNavigator();
 
 const Zonal = () => {
-  const [screenInfo, setScreen] = useState<ListPressProps>();
-
-  const handlePress = ({item, nextState}: ListPressProps) => {
-    console.log(nextState);
-    setScreen({item, nextState});
-  };
-
-  const ActiveComponent = useMemo(
-    () => ({
-      [PAGES.ZonalList]: (
-        <ZonalList
-          onPress={(item: ListViewItem) =>
-            handlePress({item, nextState: PAGES.RouteLines})
-          }
-        />
-      ),
-
-      [PAGES.RouteLines]: (
-        <RouteLines
-          id={screenInfo?.item.id}
-          onPress={(item: ListViewItem) =>
-            handlePress({item, nextState: PAGES.Poles})
-          }
-        />
-      ),
-      [PAGES.Poles]: <Poles />,
-      [PAGES.EditPole]: <EditPole />,
-    }),
-    [],
+  return (
+    <Stack.Navigator initialRouteName={router.zonalList.route}>
+      <Stack.Screen
+        name={router.zonalList.route}
+        options={{
+          headerShown: false,
+          animationEnabled: false,
+        }}
+        component={ZonalList}
+      />
+      <Stack.Screen
+        name={router.routeLines.route}
+        options={{headerShown: false, animationEnabled: false}}
+        component={RouteLines}
+      />
+      <Stack.Screen
+        name={router.poleList.route}
+        options={{headerShown: false, animationEnabled: false}}
+        component={PoleList}
+      />
+      <Stack.Screen
+        name={router.editPole.route}
+        options={{headerShown: false, animationEnabled: false}}
+        component={EditPole}
+      />
+    </Stack.Navigator>
   );
-
-  return ActiveComponent[screenInfo?.nextState ?? PAGES.ZonalList];
 };
 
 export default Zonal;

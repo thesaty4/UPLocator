@@ -6,20 +6,23 @@ import ListView, {
 import {Icons} from '../../../assets/icons/all-icons';
 import {usePageHelper} from '../../../shared/hooks/pageHelper.hook';
 import {PAGES} from '../../../types/pages.type';
+import {NavigationProp} from '@react-navigation/native';
+import {RouteType, router} from '../../../shared/routes/router';
 
 export type PoleListProps = {
-  onPress?: (item: ListViewItem) => void;
+  navigation?: NavigationProp<RouteType>;
+  isBack?: boolean;
 };
 
-const PoleList = () => {
-  const {getActivePage, setPage} = usePageHelper();
+const PoleList = ({navigation, isBack = false}: PoleListProps) => {
+  const {setPage} = usePageHelper();
 
   const handlePaginate = () => {
     console.log('paginate pole list ....');
   };
 
   const handlePress = (item: ListViewItem) => {
-    // onPress && onPress(item);
+    navigation && navigation?.navigate(router.editPole.route as any);
   };
 
   const handleAction = (item: ListViewAction) => {
@@ -38,6 +41,7 @@ const PoleList = () => {
       onEndReached={handlePaginate}
       onPressItem={handlePress}
       onPressAction={handleAction}
+      isBack={isBack}
     />
   );
 };

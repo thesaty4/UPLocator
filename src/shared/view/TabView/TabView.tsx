@@ -14,7 +14,6 @@ export type TabElements<RName> = {
 };
 
 export type TabViewProps<RName> = {
-  hideTab?: boolean;
   headerShown?: boolean;
   navbar?: React.JSX.Element;
   initialRouteName: RName;
@@ -24,7 +23,6 @@ export type TabViewProps<RName> = {
 const Tab = createBottomTabNavigator();
 
 const TabView = <RName extends Routes>({
-  hideTab = false,
   headerShown = true,
   navbar = <Navbar />,
   initialRouteName,
