@@ -6,6 +6,7 @@ import {getStyles} from '../../../shared/utils/modifiers';
 import {useForm} from 'react-hook-form';
 import InputField from '../../../shared/components/form/input/InputField';
 import Button from '../../../shared/components/form/button/Button';
+import Locator from '../../../shared/view/Locator/Locator';
 
 type EditPoleForm = {
   zonal: string;
@@ -51,7 +52,6 @@ const EditPole = () => {
           }}
           control={control}
           errors={errors}
-          type="text"
           variant="normal"
         />
         <InputField
@@ -65,7 +65,6 @@ const EditPole = () => {
           }}
           control={control}
           errors={errors}
-          type="text"
           variant="normal"
         />
         <InputField
@@ -79,7 +78,6 @@ const EditPole = () => {
           }}
           control={control}
           errors={errors}
-          type="text"
           variant="normal"
         />
         <InputField
@@ -93,36 +91,16 @@ const EditPole = () => {
           }}
           control={control}
           errors={errors}
-          type="text"
           variant="normal"
         />
-        <InputField
-          name="location.latitude"
-          placeholder="Latitude"
-          rule={{
-            required: {
-              value: true,
-              message: 'This field is required',
-            },
+        <Locator
+          names={{
+            latitude: 'location.latitude',
+            longitude: 'location.longitude',
           }}
           control={control}
           errors={errors}
-          type="text"
-          variant="normal"
-        />
-        <InputField
-          name="location.longitude"
-          placeholder="Longitude"
-          rule={{
-            required: {
-              value: true,
-              message: 'This field is required',
-            },
-          }}
-          control={control}
-          errors={errors}
-          type="text"
-          variant="normal"
+          required={true}
         />
         <InputField
           name="description"
@@ -135,11 +113,14 @@ const EditPole = () => {
           }}
           control={control}
           errors={errors}
-          type="text"
           variant="normal"
         />
 
-        <Button label="Update" onPress={handleSubmit(onUpdate)} />
+        <Button
+          label="Update"
+          onPress={handleSubmit(onUpdate)}
+          buttonType="primary"
+        />
       </ScrollView>
     </View>
   );

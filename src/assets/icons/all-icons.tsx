@@ -56,4 +56,5 @@ export const Icons = {
   route: require('./route.png'),
   map: require('./g-map.png'),
   mapColored: require('./map-color.png'),
+  myLocation: require('./my-location.png'),
 } satisfies Record<string, ImageURISource>;

@@ -18,10 +18,11 @@ import {
 import {getStyles, tStyleProps} from '../../../utils/modifiers';
 import {appColors} from '../../../../constants/app.color';
 import {Icons} from '../../../../assets/icons/all-icons';
+import {VariantTypes} from '../../../../types/form.type';
 
 type InputFieldProps<CType extends FieldValues> = {
   name: Path<CType>;
-  type: 'text' | 'number' | 'date' | 'password' | 'email';
+  type?: 'text' | 'number' | 'date' | 'password' | 'email';
   rule: any;
   control: Control<CType, any>;
   keyboardType?: KeyboardTypeOptions;
@@ -29,13 +30,13 @@ type InputFieldProps<CType extends FieldValues> = {
   placeholder?: string;
   styleClass?: tStyleProps[];
   searchable?: boolean;
-  variant?: 'primary' | 'secondary' | 'normal';
+  variant?: VariantTypes;
   onSearch?: (data: string) => void;
 };
 
 const InputField = <CType extends FieldValues>({
   name,
-  type,
+  type = 'text',
   rule,
   control,
   errors,
