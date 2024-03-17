@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import Header from '../../../shared/view/header/Header';
 import {Icons} from '../../../assets/icons/all-icons';
 

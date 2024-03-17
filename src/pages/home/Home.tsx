@@ -3,7 +3,7 @@ import {Icons} from '../../assets/icons/all-icons';
 import CapturePole from '../features/CapturePole/CapturePole';
 import TabView, {TabViewProps} from '../../shared/view/TabView/TabView';
 import {Routes, router} from '../../shared/routes/router';
-import Zonal from '../features/Zonal/Zonal';
+import Zonal from '../features/Zonal/ZonalMain';
 import PoleListMain from '../features/PoleList/PoleListMain';
 
 const Home = () => {

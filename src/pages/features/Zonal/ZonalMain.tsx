@@ -8,7 +8,7 @@ import Poles from '../Poles/Poles';
 
 const Stack = createStackNavigator();
 
-const Zonal = () => {
+const ZonalMain = () => {
   return (
     <Stack.Navigator initialRouteName={router.zonalList.route}>
       <Stack.Screen
@@ -38,4 +38,4 @@ const Zonal = () => {
   );
 };
 
-export default Zonal;
+export default ZonalMain;
