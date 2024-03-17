@@ -1,9 +1,11 @@
-import {StyleProp, TextStyle, ViewStyle} from 'react-native';
+import {ImageStyle, StyleProp, TextStyle, ViewStyle} from 'react-native';
 import {TailwindStyles, tw} from 'react-native-tailwindcss';
 
 export type tStyleProps = keyof TailwindStyles;
 
-export const getStyles = <eStyleType extends ViewStyle | TextStyle>(
+export const getStyles = <
+  eStyleType extends ViewStyle | TextStyle | ImageStyle,
+>(
   styles: tStyleProps[],
   commonStyle?: StyleType,
   extraStyle?: StyleProp<eStyleType>,

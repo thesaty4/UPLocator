@@ -11,7 +11,7 @@ export type PoleListProps = {
   onPress?: (item: ListViewItem) => void;
 };
 
-const PoleList = ({onPress}: PoleListProps) => {
+const PoleList = () => {
   const {getActivePage, setPage} = usePageHelper();
 
   const handlePaginate = () => {
@@ -19,7 +19,7 @@ const PoleList = ({onPress}: PoleListProps) => {
   };
 
   const handlePress = (item: ListViewItem) => {
-    onPress && onPress(item);
+    // onPress && onPress(item);
   };
 
   const handleAction = (item: ListViewAction) => {

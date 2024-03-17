@@ -14,7 +14,7 @@ const Poles = ({onPress}: PoleListProps) => {
     onPress && onPress(item);
   };
 
-  return <PoleList onPress={handlePress} />;
+  return <PoleList />;
 };
 
 export default Poles;

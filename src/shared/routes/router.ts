@@ -1,23 +1,23 @@
 export const router = {
   home: {
     label: 'Home',
-    route: '/' as never,
+    route: '/',
   },
   validator: {
     label: '',
-    route: 'validator' as never,
+    route: 'validator',
   },
   signIn: {
     label: 'Sign In',
-    route: 'signIn' as never,
+    route: 'signIn',
+  }, 
+  capturePole:{
+    label: 'Capture Pole',
+    route: 'capture-pole',
   },
-  signUp: {
-    label: 'SignUp',
-    route: 'signup' as never,
-  },
-  forgotPassword: {
-    label: 'Forgot Password',
-    route: 'forgot-password' as never,
+  poleList:{
+    label: 'Pole List',
+    route: 'pole-list',
   },
 } satisfies Record<string, Routes>;
 
