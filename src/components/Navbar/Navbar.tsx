@@ -33,40 +33,38 @@ function Navbar() {
 
   return (
     <>
-      {true && (
-        <View style={usersStyles.navbar}>
-          <View {...getStyles(['flexRow'])}>
-            <Image
-              source={Icons.trainFront}
-              style={[
-                usersStyles.logo,
-                usersStyles.navbarIcons,
-                {width: 30, top: 2},
-              ]}
-            />
-          </View>
-          <View {...getStyles(['flex1'])}>
-            <InputField
-              name="search"
-              control={control}
-              errors={errors}
-              rule={{}}
-              type={'text'}
-              placeholder="Search..."
-              styleClass={['borderDir', 'borderWhite']}
-              searchable
-              onSearch={data => console.log(data)}
-            />
-          </View>
-
-          <TouchableOpacity onPress={handleLogout}>
-            <Image
-              source={Icons.logout}
-              style={{tintColor: 'white', height: 30, width: 30}}
-            />
-          </TouchableOpacity>
+      <View style={usersStyles.navbar}>
+        <View {...getStyles(['flexRow'])}>
+          <Image
+            source={Icons.trainFront}
+            style={[
+              usersStyles.logo,
+              usersStyles.navbarIcons,
+              {width: 30, top: 2},
+            ]}
+          />
         </View>
-      )}
+        <View {...getStyles(['flex1'])}>
+          <InputField
+            name="search"
+            control={control}
+            errors={errors}
+            rule={{}}
+            type={'text'}
+            placeholder="Search..."
+            styleClass={['borderDir', 'borderWhite']}
+            searchable
+            onSearch={data => console.log(data)}
+          />
+        </View>
+
+        <TouchableOpacity onPress={handleLogout}>
+          <Image
+            source={Icons.logout}
+            style={{tintColor: 'white', height: 30, width: 30}}
+          />
+        </TouchableOpacity>
+      </View>
     </>
   );
 }
