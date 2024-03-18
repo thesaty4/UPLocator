@@ -185,7 +185,17 @@ const CameraView: React.FC<CameraViewProps> = ({onCapture}) => {
           </RNCamera>
         </View>
       );
-    }, [cameraRef, width, height]);
+    }, [
+      cameraRef,
+      width,
+      height,
+      flash,
+      isBackCam,
+      isFullView,
+      setFlash,
+      setBackCam,
+      setFullView,
+    ]);
 
   const EmptyView = () =>
     useMemo(() => {
